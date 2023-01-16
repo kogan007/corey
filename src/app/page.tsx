@@ -1,91 +1,236 @@
-import Image from 'next/image'
-import { Inter } from '@next/font/google'
-import styles from './page.module.css'
+import Image from "next/image";
+import Head from "next/head";
+import Link from "next/link";
+import clsx from "clsx";
 
-const inter = Inter({ subsets: ['latin'] })
+import { Button } from "@/components/Button";
+import { Card } from "@/components/Card";
+import { Container } from "@/components/Container";
+import {
+  TwitterIcon,
+  InstagramIcon,
+  GitHubIcon,
+  LinkedInIcon,
+} from "@/components/SocialIcons";
 
-export default function Home() {
+import logoAirbnb from "@/images/logos/airbnb.svg";
+import logoFacebook from "@/images/logos/facebook.svg";
+import logoPlanetaria from "@/images/logos/planetaria.svg";
+import logoStarbucks from "@/images/logos/starbucks.svg";
+import portrait from "@/images/portrait.png";
+
+import { formatDate } from "@/lib/formatDate";
+import { getAllProjects } from "@/lib/projects";
+
+import Projects from "@/components/Projects";
+import { getAllPosts, PostSnipppet } from "@/lib/posts";
+
+function MailIcon(props: any) {
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>app/page.tsx</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
-
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-        <div className={styles.thirteen}>
-          <Image src="/thirteen.svg" alt="13" width={40} height={31} priority />
-        </div>
-      </div>
-
-      <div className={styles.grid}>
-        <a
-          href="https://beta.nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={inter.className}>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p className={inter.className}>
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={inter.className}>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p className={inter.className}>Explore the Next.js 13 playground.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={inter.className}>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p className={inter.className}>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
-  )
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+      {...props}
+    >
+      <path
+        d="M2.75 7.75a3 3 0 0 1 3-3h12.5a3 3 0 0 1 3 3v8.5a3 3 0 0 1-3 3H5.75a3 3 0 0 1-3-3v-8.5Z"
+        className="fill-zinc-100 stroke-zinc-400 dark:fill-zinc-100/10 dark:stroke-zinc-500"
+      />
+      <path
+        d="m4 6 6.024 5.479a2.915 2.915 0 0 0 3.952 0L20 6"
+        className="stroke-zinc-400 dark:stroke-zinc-500"
+      />
+    </svg>
+  );
 }
+
+function BriefcaseIcon(props: any) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+      {...props}
+    >
+      <path
+        d="M2.75 9.75a3 3 0 0 1 3-3h12.5a3 3 0 0 1 3 3v8.5a3 3 0 0 1-3 3H5.75a3 3 0 0 1-3-3v-8.5Z"
+        className="fill-zinc-100 stroke-zinc-400 dark:fill-zinc-100/10 dark:stroke-zinc-500"
+      />
+      <path
+        d="M3 14.25h6.249c.484 0 .952-.002 1.316.319l.777.682a.996.996 0 0 0 1.316 0l.777-.682c.364-.32.832-.319 1.316-.319H21M8.75 6.5V4.75a2 2 0 0 1 2-2h2.5a2 2 0 0 1 2 2V6.5"
+        className="stroke-zinc-400 dark:stroke-zinc-500"
+      />
+    </svg>
+  );
+}
+
+function ArrowDownIcon(props: any) {
+  return (
+    <svg viewBox="0 0 16 16" fill="none" aria-hidden="true" {...props}>
+      <path
+        d="M4.75 8.75 8 12.25m0 0 3.25-3.5M8 12.25v-8.5"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
+function Article({ article }: { article: PostSnipppet }) {
+  return (
+    <Card as="article">
+      <Card.Title href={`${article.path.current}`}>{article.title}</Card.Title>
+      <Card.Eyebrow as="time" dateTime={article._createdAt} decorate>
+        {formatDate(article._createdAt)}
+      </Card.Eyebrow>
+      <Card.Description>{article.shortDesc}</Card.Description>
+      <Card.Cta>Read article</Card.Cta>
+    </Card>
+  );
+}
+
+function SocialLink({ icon: Icon, ...props }: any) {
+  return (
+    <Link className="group -m-1 p-1" {...props}>
+      <Icon className="h-6 w-6 fill-zinc-500 transition group-hover:fill-zinc-600 dark:fill-zinc-400 dark:group-hover:fill-zinc-300" />
+    </Link>
+  );
+}
+
+function Newsletter() {
+  return (
+    <form
+      action="/thank-you"
+      className="rounded-2xl border border-zinc-100 p-6 dark:border-zinc-700/40"
+    >
+      <h2 className="flex text-sm font-semibold text-zinc-900 dark:text-zinc-100">
+        <MailIcon className="h-6 w-6 flex-none" />
+        <span className="ml-3">Stay up to date</span>
+      </h2>
+      <p className="mt-2 text-sm text-zinc-600 dark:text-zinc-400">
+        Get notified when I publish something new, and unsubscribe at any time.
+      </p>
+      <div className="mt-6 flex">
+        <input
+          type="email"
+          placeholder="Email address"
+          aria-label="Email address"
+          required
+          className="min-w-0 flex-auto appearance-none rounded-md border border-zinc-900/10 bg-white px-3 py-[calc(theme(spacing.2)-1px)] shadow-md shadow-zinc-800/5 placeholder:text-zinc-400 focus:border-teal-500 focus:outline-none focus:ring-4 focus:ring-teal-500/10 dark:border-zinc-700 dark:bg-zinc-700/[0.15] dark:text-zinc-200 dark:placeholder:text-zinc-500 dark:focus:border-teal-400 dark:focus:ring-teal-400/10 sm:text-sm"
+        />
+        <Button type="submit" className="ml-4 flex-none">
+          Join
+        </Button>
+      </div>
+    </form>
+  );
+}
+
+export default async function Home() {
+  const allProjectPromise = getAllProjects();
+  const allPostPromise = getAllPosts();
+  const [{ allProject }, { allPost }] = await Promise.all([
+    allProjectPromise,
+    allPostPromise,
+  ]);
+
+  return (
+    <>
+      <Container className="mt-9">
+        <div className="max-w-7xl flex space-x-6 flex-wrap">
+          <Image
+            src={portrait}
+            alt="Corey Kogan"
+            width={600}
+            height={600}
+            className="rounded-2xl"
+          />
+          <div>
+            <div className="text-4xl font-bold tracking-tight text-zinc-800 dark:text-zinc-100 sm:text-5xl">
+              <h1 className="leading-[66px] bg-gradient-to-r from-sky-500 to-red-500 bg-[length:400%] bg-clip-text text-transparent gradient-text">
+                Corey Kogan,
+              </h1>
+              <div>Web Developer</div>
+            </div>
+            <p className="mt-6 text-base text-zinc-600 dark:text-zinc-400 max-w-sm">
+              I'm Corey, a web developer based in Philadelphia, Pennsylvania.
+              I'm passionate about building responsive and accessible web
+              applications using the latest technologies in the web industry
+            </p>
+            <div className="mt-6 flex gap-6">
+              <SocialLink
+                href="https://twitter.com/coreykogan_"
+                aria-label="Follow on Twitter"
+                icon={TwitterIcon}
+              />
+              <SocialLink
+                href="https://instagram.com/coreykogan"
+                aria-label="Follow on Instagram"
+                icon={InstagramIcon}
+              />
+              <SocialLink
+                href="https://github.com/kogan007"
+                aria-label="Follow on GitHub"
+                icon={GitHubIcon}
+              />
+              <SocialLink
+                href="https://www.linkedin.com/in/corey-kogan-5159261b5/"
+                aria-label="Follow on LinkedIn"
+                icon={LinkedInIcon}
+              />
+            </div>
+            <div className="space-x-2 mt-4 flex items-center">
+              <div>
+                <button className="rounded-md px-2 py-1 uppercase bg-gray-500 text-white text-sm font-medium hover:bg-gray-700 transition-all duration-150 ease-linear border border-gray-500 hover:border-gray-700">
+                  My Resume
+                </button>
+              </div>
+              <div>
+                <button className="rounded-md px-2 py-1 uppercase bg-white text-gray-500 border border-gray-500 text-sm font-medium hover:border-gray-700 hover:bg-gray-700 hover:text-white transition-all duration-150 ease-linear">
+                  Contact Me
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </Container>
+
+      {/* <Photos /> */}
+
+      <Container className="mt-24 md:mt-28">
+        <div className="mx-auto grid max-w-xl grid-cols-1 gap-y-20 lg:max-w-none lg:grid-cols-2">
+          <div className="flex flex-col gap-16">
+            {allPost.map((post) => (
+              <Article key={post._id} article={post} />
+            ))}
+          </div>
+          <div className="space-y-10 lg:pl-16 xl:pl-24">
+            <Newsletter />
+          </div>
+        </div>
+      </Container>
+    </>
+  );
+}
+
+// export async function getStaticProps() {
+//   if (process.env.NODE_ENV === "production") {
+//     await generateRssFeed();
+//   }
+
+//   return {
+//     props: {
+//       articles: (await getAllArticles())
+//         .slice(0, 4)
+//         .map(({ component, ...meta }) => meta),
+//     },
+//   };
+// }
