@@ -11,7 +11,7 @@ import {
 } from "@/components/SocialIcons";
 import portraitImage from "@/images/portrait.png";
 
-function SocialLink({ className, href, children, icon: Icon }) {
+function SocialLink({ className, href, children, icon: Icon }: any) {
   return (
     <li className={clsx(className, "flex")}>
       <Link
@@ -25,7 +25,7 @@ function SocialLink({ className, href, children, icon: Icon }) {
   );
 }
 
-function MailIcon(props) {
+function MailIcon(props: any) {
   return (
     <svg viewBox="0 0 24 24" aria-hidden="true" {...props}>
       <path
