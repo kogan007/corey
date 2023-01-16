@@ -161,9 +161,10 @@ export default async function Home() {
               <div>Web Developer</div>
             </div>
             <p className="mt-6 text-base text-zinc-600 dark:text-zinc-400 max-w-sm">
-              I'm Corey, a web developer based in Philadelphia, Pennsylvania.
-              I'm passionate about building responsive and accessible web
-              applications using the latest technologies in the web industry
+              I&apos;m Corey, a web developer based in Philadelphia,
+              Pennsylvania. I&apos;m passionate about building responsive and
+              accessible web applications using the latest technologies in the
+              web industry
             </p>
             <div className="mt-6 flex gap-6">
               <SocialLink
