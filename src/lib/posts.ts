@@ -20,6 +20,30 @@ const allPostsQuery = `
     }
 `;
 
+const postQuery = `
+    query getPost(
+      $path: String!
+    ) {
+      allPost(where: { path: { current: { eq: $path }}}) {
+        title
+        _id
+        shortDesc
+        tags
+        _createdAt
+        path {
+          current
+        }
+        postImage{
+            asset {
+                url
+            }
+        }
+      }
+    }
+`;
+
+export type Post = PostSnipppet & {};
+
 export type PostSnipppet = {
   title: string;
   _id: string;
@@ -40,4 +64,11 @@ const getAllPosts = async () => {
   return data;
 };
 
-export { getAllPosts };
+const getPost = async (path: string) => {
+  const { allPost } = await fetchSanity<{ allPost: Post[] }>(postQuery, {
+    variables: { path },
+  });
+  return allPost[0];
+};
+
+export { getAllPosts, getPost };
