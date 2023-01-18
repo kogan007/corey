@@ -14,6 +14,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
 
 const handleSubscribe = async (req: NextApiRequest, res: NextApiResponse) => {
   const { email } = req.body;
+
   const subscribe = await fetch(
     "https://us5.api.mailchimp.com/3.0/lists/a7a8b5d70e/members",
     {
@@ -38,8 +39,9 @@ const handleSubscribe = async (req: NextApiRequest, res: NextApiResponse) => {
             if (json.title === "Member Exists") {
               return res
                 .status(400)
-                .json({ data: "You are already subscribed" });
+                .json({ error: "You are already subscribed" });
             }
+
             return res.status(400).json({ error: "Error subscribing" });
           });
         } else if (data.status === 200) {

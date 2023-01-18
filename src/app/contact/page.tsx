@@ -1,24 +1,23 @@
+import ContactForm from "@/components/ContactForm";
+
 export default function Contact() {
   return (
-    <div>
-      <form action="https://api.web3forms.com/submit" method="POST">
-        <input
-          type="hidden"
-          name="access_key"
-          value="32d8c349-037a-43b6-8db2-366b5d5bf148"
-        />
+    <div className="mx-auto max-w-7xl px-6 lg:px-8 mt-12">
+      <div className="relative bg-white shadow-xl">
+        <h2 id="contact-heading" className="sr-only">
+          Contact Me
+        </h2>
 
-        <input type="text" name="name" required />
-        <input type="email" name="email" required />
-        <textarea name="message" required></textarea>
-        <input
-          type="hidden"
-          name="redirect"
-          value="https://web3forms.com/success"
-        />
-
-        <button type="submit">Submit Form</button>
-      </form>
+        <div>
+          {/* Contact form */}
+          <div className="py-10 px-6 sm:px-10 lg:col-span-2 xl:p-12">
+            <h3 className="text-lg font-medium text-warm-gray-900">
+              Send me a message
+            </h3>
+            <ContactForm />
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

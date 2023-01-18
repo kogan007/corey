@@ -6,8 +6,14 @@ const allProjectsQuery = `
             name
             _id
             shortDesc
+            sitePath
             path {
               current
+            }
+            projectLogo {
+              asset {
+                url
+              }
             }
             projectImage{
                 asset {
@@ -21,9 +27,15 @@ const allProjectsQuery = `
 export type ProjectSnippet = {
   name: string;
   _id: string;
+  sitePath: string;
   shortDesc: string;
   path: {
     current: string;
+  };
+  projectLogo: {
+    asset: {
+      url: string;
+    };
   };
   projectImage: {
     asset: {
