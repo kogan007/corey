@@ -68,7 +68,7 @@ export default async function Home() {
               I&apos;m Corey, a web developer based in Philadelphia,
               Pennsylvania. I&apos;m passionate about building responsive and
               accessible web applications using the latest technologies in the
-              web industry
+              web industry.
             </p>
             <div className="mt-6 flex gap-6">
               <SocialLink
@@ -94,23 +94,27 @@ export default async function Home() {
             </div>
             <div className="space-x-2 mt-4 flex items-center">
               <div>
-                <button className="rounded-md px-2 py-1 uppercase bg-gray-500 text-white text-sm font-medium hover:bg-gray-700 transition-all duration-150 ease-linear border border-gray-500 hover:border-gray-700">
+                <a
+                  href="/resume.pdf"
+                  className="inline-block rounded-md px-2 py-1 uppercase bg-gray-500 text-white text-sm font-medium hover:bg-gray-700 transition-all duration-150 ease-linear border border-gray-500 hover:border-gray-700"
+                >
                   My Resume
-                </button>
+                </a>
               </div>
               <div>
-                <button className="rounded-md px-2 py-1 uppercase bg-white text-gray-500 border border-gray-500 text-sm font-medium hover:border-gray-700 hover:bg-gray-700 hover:text-white transition-all duration-150 ease-linear">
+                <Link
+                  href="/contact"
+                  className="inline-block rounded-md px-2 py-1 uppercase bg-white text-gray-500 border border-gray-500 text-sm font-medium hover:border-gray-700 hover:bg-gray-700 hover:text-white transition-all duration-150 ease-linear"
+                >
                   Contact Me
-                </button>
+                </Link>
               </div>
             </div>
           </div>
         </div>
       </Container>
 
-      {/* <Photos /> */}
-
-      <Container className="mt-24 md:mt-28">
+      <Container className="mt-24 md:mt-28 mb-6">
         <div className="mx-auto grid max-w-xl grid-cols-1 gap-y-20 lg:max-w-none lg:grid-cols-2">
           <div className="flex flex-col gap-16">
             {allPost.map((post) => (
@@ -125,17 +129,3 @@ export default async function Home() {
     </>
   );
 }
-
-// export async function getStaticProps() {
-//   if (process.env.NODE_ENV === "production") {
-//     await generateRssFeed();
-//   }
-
-//   return {
-//     props: {
-//       articles: (await getAllArticles())
-//         .slice(0, 4)
-//         .map(({ component, ...meta }) => meta),
-//     },
-//   };
-// }
