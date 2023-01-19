@@ -12,7 +12,7 @@ export default async function BlogPost({
   if (!post) return notFound();
   return (
     <ArticleLayout meta={{ title: post.title, date: post._createdAt }}>
-      <div>okk</div>
+      <div>W.I.P</div>
     </ArticleLayout>
   );
 }
