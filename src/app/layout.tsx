@@ -2,6 +2,7 @@ import "./globals.css";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import Script from "next/script";
+import { AnalyticsWrapper } from "@/components/Analytics";
 
 const modeScript = `
   let darkModeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)')
@@ -58,6 +59,7 @@ export default function RootLayout({
         <Header />
         {children}
         <Footer />
+        <AnalyticsWrapper />
       </body>
     </html>
   );
