@@ -56,6 +56,7 @@ export default async function Home() {
             width={600}
             height={600}
             className="rounded-2xl"
+            priority
           />
           <div>
             <div className="text-4xl font-bold tracking-tight text-zinc-800 dark:text-zinc-100 sm:text-5xl">
