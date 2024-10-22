@@ -1,8 +1,7 @@
 import Image from "next/image";
 
 import Link from "next/link";
-
-import { Button } from "@/components/Button";
+import Flow from "@/components/Flow";
 import { Card } from "@/components/Card";
 import { Container } from "@/components/Container";
 import {
@@ -111,6 +110,7 @@ export default async function Home() {
                 </Link>
               </div>
             </div>
+            <Flow />
           </div>
         </div>
       </Container>
