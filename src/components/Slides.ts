@@ -1,4 +1,4 @@
-import { Edge, Node } from "reactflow";
+import { Edge, Node } from "@xyflow/react";
 import { SLIDE_WIDTH, SLIDE_HEIGHT, SLIDE_PADDING, SlideData } from "./Slide";
 
 const slide01 = {
@@ -36,13 +36,13 @@ export const slidesToElements = (
 ) => {
   const stack = [{ id: initial, position: { x: 0, y: 50 } }];
   const visited = new Set();
-  const nodes: Node<SlideData>[] = [];
+  const nodes: Node<SlideData, "slide">[] = [];
   const edges: Edge[] = [];
 
   while (stack.length) {
     const { id, position } = stack.pop()!;
     const data = slides[id];
-    const node = { id, type: "slide", position, data };
+    const node: Node<SlideData, "slide"> = { id, type: "slide", position, data };
 
     if (data.left && !visited.has(data.left)) {
       const nextPosition = {

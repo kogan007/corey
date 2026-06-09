@@ -2,20 +2,19 @@
 import { KeyboardEventHandler, useCallback, useState } from "react";
 import {
   Background,
-  Node,
   NodeMouseHandler,
-  NodeProps,
+  type NodeTypes,
   ReactFlow,
   ReactFlowProvider,
   useReactFlow,
-} from "reactflow";
-import "reactflow/dist/style.css";
+} from "@xyflow/react";
+import "@xyflow/react/dist/style.css";
 import { Slide, SlideData } from "./Slide";
 import { slides, slidesToElements } from "./Slides";
 
 const nodeTypes = {
   slide: Slide,
-};
+} satisfies NodeTypes;
 
 const initialSlide = "01";
 const { nodes, edges } = slidesToElements(initialSlide, slides);

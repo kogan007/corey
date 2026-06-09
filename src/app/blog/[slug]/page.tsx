@@ -5,9 +5,9 @@ import { ArticleLayout } from "@/components/ArticleLayout";
 export default async function BlogPost({
   params,
 }: {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }) {
-  const { slug } = params;
+  const { slug } = await params;
   const post = await getPost(`/blog/` + slug);
   if (!post) return notFound();
   return (

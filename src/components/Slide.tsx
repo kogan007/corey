@@ -1,4 +1,4 @@
-import { type NodeProps, useReactFlow } from "reactflow";
+import { type Node, type NodeProps, useReactFlow } from "@xyflow/react";
 import { useCallback } from "react";
 
 export type SlideData = {
@@ -22,7 +22,9 @@ const style = {
   fontSize: "16px",
 } satisfies React.CSSProperties;
 
-export function Slide({ data }: NodeProps<SlideData>) {
+type SlideNode = Node<SlideData, "slide">;
+
+export function Slide({ data }: NodeProps<SlideNode>) {
   const { source, left, up, down, right } = data;
   const { fitView } = useReactFlow();
 

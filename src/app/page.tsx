@@ -10,7 +10,6 @@ import {
   GitHubIcon,
   LinkedInIcon,
 } from "@/components/SocialIcons";
-import portrait from "@/images/portrait.png";
 import { formatDate } from "@/lib/formatDate";
 import { getAllProjects } from "@/lib/projects";
 import { getAllPosts, PostSnipppet } from "@/lib/posts";
@@ -50,10 +49,10 @@ export default async function Home() {
       <Container className="mt-9">
         <div className="max-w-7xl flex space-x-6 flex-wrap">
           <Image
-            src={portrait}
+            src="/images/portrait.png"
             alt="Corey Kogan"
-            width={600}
-            height={600}
+            width={740}
+            height={915}
             className="rounded-2xl"
             priority
           />
