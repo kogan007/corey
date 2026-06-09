@@ -51,8 +51,8 @@ export default async function Home() {
           <Image
             src="/images/portrait.png"
             alt="Corey Kogan"
-            width={740}
-            height={915}
+            width={600}
+            height={600}
             className="rounded-2xl"
             priority
           />
