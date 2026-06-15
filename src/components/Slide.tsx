@@ -52,7 +52,7 @@ export function Slide({ data }: NodeProps<SlideNode>) {
 
   return (
     <article
-      className="rounded-lg p-[3px] gradient-border overflow-hidden relative wrapper shadow-md"
+      className="rounded-lg p-[3px] gradient-border overflow-hidden wrapper shadow-md absolute w-[279px] h-[139px] left-[-97px] top-[-48px]"
       style={style}
     >
       <div className="bg-white dark:bg-zinc-900 p-2.5 flex flex-col justify-between rounded-md absolute w-[250px] h-[135px] left-[-70px] top-[-46px]">
