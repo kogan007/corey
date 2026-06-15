@@ -55,7 +55,7 @@ export function Slide({ data }: NodeProps<SlideNode>) {
       className="rounded-lg p-[3px] gradient-border overflow-hidden relative wrapper shadow-md"
       style={style}
     >
-      <div className="bg-white dark:bg-zinc-900 p-2.5 h-full flex flex-col justify-between rounded-md">
+      <div className="bg-white dark:bg-zinc-900 p-2.5 flex flex-col justify-between rounded-md absolute w-[250px] h-[135px] left-[-70px] top-[-46px]">
         <p className="text-xs text-zinc-700 dark:text-zinc-300 leading-snug line-clamp-3">
           {source}
         </p>
