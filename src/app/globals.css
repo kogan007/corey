@@ -50,23 +50,19 @@ pre[class*="language-"] {
   color: theme("colors.zinc.400");
 }
 
+/* ── Gradient text animation ── */
 @keyframes Gradient {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
+  0%   { background-position: 0%   50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0%   50%; }
 }
 
 .gradient-text {
-  animation: Gradient 15s ease infinite;
+  animation: Gradient 12s ease infinite;
 }
 
-.gradient-border:before {
+/* ── Slide gradient border spinner ── */
+.gradient-border::before {
   content: "";
   position: absolute;
   padding-bottom: calc(100% * 1.41421356237);
@@ -74,8 +70,6 @@ pre[class*="language-"] {
   left: 50%;
   top: 50%;
   border-radius: 100%;
-
-  content: "";
   background: conic-gradient(
     from -160deg at 50% 50%,
     #e92a67 0deg,
@@ -89,11 +83,15 @@ pre[class*="language-"] {
 }
 
 @keyframes spinner {
-  100% {
-    transform: translate(-50%, -50%) rotate(-360deg);
-  }
+  100% { transform: translate(-50%, -50%) rotate(-360deg); }
 }
 
+/* ── React Flow canvas ── */
 .react-flow__panel.react-flow__attribution {
   display: none;
+}
+
+/* Remove the double border — the wrapper div in page.tsx already has one */
+.react-flow {
+  border: none !important;
 }

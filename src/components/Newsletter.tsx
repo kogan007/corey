@@ -38,30 +38,41 @@ export default function Newsletter() {
       method="POST"
       onSubmit={handleSubmit}
       action="/api/subscribe"
-      className="rounded-2xl border border-zinc-100 p-6 dark:border-zinc-700/40"
+      className="rounded-2xl border border-zinc-100 dark:border-zinc-700/40 bg-white dark:bg-zinc-800/30 p-8 shadow-sm"
     >
-      <h2 className="flex text-sm font-semibold text-zinc-900 dark:text-zinc-100">
-        <MailIcon className="h-6 w-6 flex-none" />
-        <span className="ml-3">Stay up to date</span>
-      </h2>
-      <p className="mt-2 text-sm text-zinc-600 dark:text-zinc-400">
-        Get notified when I publish something new, and unsubscribe at any time.
+      {/* Header */}
+      <div className="flex items-center gap-3 mb-1">
+        <div className="flex h-10 w-10 items-center justify-center rounded-full bg-zinc-100 dark:bg-zinc-800 ring-1 ring-zinc-200 dark:ring-zinc-700/60">
+          <MailIcon className="h-5 w-5" />
+        </div>
+        <h2 className="text-base font-semibold text-zinc-900 dark:text-zinc-100">
+          Stay up to date
+        </h2>
+      </div>
+
+      <p className="mt-3 text-sm leading-6 text-zinc-600 dark:text-zinc-400">
+        Get notified when I publish something new. No spam — unsubscribe at any
+        time.
       </p>
-      <div className="mt-6 flex">
+
+      {/* Input row */}
+      <div className="mt-6 flex gap-3">
         <input
           type="email"
-          placeholder="Email address"
+          placeholder="you@example.com"
           aria-label="Email address"
           required
           name="email"
           autoComplete="email"
-          className="min-w-0 flex-auto appearance-none rounded-md border border-zinc-900/10 bg-white px-3 py-[calc(theme(spacing.2)-1px)] shadow-md shadow-zinc-800/5 placeholder:text-zinc-400 focus:border-teal-500 focus:outline-none focus:ring-4 focus:ring-teal-500/10 dark:border-zinc-700 dark:bg-zinc-700/[0.15] dark:text-zinc-200 dark:placeholder:text-zinc-500 dark:focus:border-teal-400 dark:focus:ring-teal-400/10 sm:text-sm"
+          className="min-w-0 flex-auto appearance-none rounded-lg border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-700/20 px-4 py-2.5 text-sm text-zinc-900 dark:text-zinc-100 shadow-sm placeholder:text-zinc-400 dark:placeholder:text-zinc-500 focus:border-teal-500 focus:outline-none focus:ring-2 focus:ring-teal-500/20 dark:focus:border-teal-400 dark:focus:ring-teal-400/20 transition"
         />
-        <Button type="submit" className="ml-4 flex-none">
+        <Button type="submit" className="flex-none px-5">
           Join
         </Button>
       </div>
-      <div className="mt-2">
+
+      {/* Feedback */}
+      <div className="mt-3 min-h-[1.25rem]">
         {data?.error && (
           <ValidationMessage
             message={data.error}
@@ -71,7 +82,7 @@ export default function Newsletter() {
         )}
         {data && !data.error && (
           <ValidationMessage
-            message="Successfully submitted"
+            message="You're subscribed!"
             isSubmitting={type === "loading"}
             type="success"
           />
