@@ -50,23 +50,19 @@ pre[class*="language-"] {
   color: theme("colors.zinc.400");
 }
 
+/* ── Gradient text animation ── */
 @keyframes Gradient {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
+  0%   { background-position: 0%   50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0%   50%; }
 }
 
 .gradient-text {
   animation: Gradient 15s ease infinite;
 }
 
-.gradient-border:before {
+/* ── Slide gradient border spinner ── */
+.gradient-border::before {
   content: "";
   position: absolute;
   padding-bottom: calc(100% * 1.41421356237);
@@ -74,8 +70,6 @@ pre[class*="language-"] {
   left: 50%;
   top: 50%;
   border-radius: 100%;
-
-  content: "";
   background: conic-gradient(
     from -160deg at 50% 50%,
     #e92a67 0deg,
@@ -89,11 +83,21 @@ pre[class*="language-"] {
 }
 
 @keyframes spinner {
-  100% {
-    transform: translate(-50%, -50%) rotate(-360deg);
-  }
+  100% { transform: translate(-50%, -50%) rotate(-360deg); }
 }
 
+/* ── React Flow ── */
 .react-flow__panel.react-flow__attribution {
   display: none;
+}
+
+/* Rounded background for the flow canvas */
+.react-flow {
+  border-radius: 0.75rem;
+  overflow: hidden;
+  border: 1px solid rgb(228 228 231 / 0.8); /* zinc-200 */
+}
+
+.dark .react-flow {
+  border-color: rgb(63 63 70 / 0.6); /* zinc-700 */
 }

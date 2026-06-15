@@ -46,29 +46,48 @@ export default async function Home() {
 
   return (
     <>
-      <Container className="mt-9">
-        <div className="max-w-7xl flex space-x-6 flex-wrap">
-          <Image
-            src="/images/portrait.png"
-            alt="Corey Kogan"
-            width={600}
-            height={600}
-            className="rounded-2xl"
-            priority
-          />
-          <div>
-            <div className="text-4xl font-bold tracking-tight text-zinc-800 dark:text-zinc-100 sm:text-5xl">
-              <h1 className="leading-[66px] bg-gradient-to-r from-sky-500 to-red-500 bg-[length:400%] bg-clip-text text-transparent gradient-text">
-                Corey Kogan,
-              </h1>
-              <div>Web Developer</div>
+      {/* ── Hero ── */}
+      <Container className="mt-9 sm:mt-16">
+        <div className="grid grid-cols-1 items-center gap-y-12 lg:grid-cols-2 lg:gap-x-16">
+
+          {/* Portrait — right column on large screens */}
+          <div className="flex justify-center lg:order-last lg:justify-end">
+            <div className="relative w-72 sm:w-80 lg:w-full lg:max-w-sm">
+              {/* decorative glow */}
+              <div
+                aria-hidden="true"
+                className="absolute -inset-6 rounded-[2rem] bg-gradient-to-tr from-sky-500/30 to-red-500/25 blur-3xl"
+              />
+              <Image
+                src="/images/portrait.png"
+                alt="Corey Kogan"
+                width={600}
+                height={600}
+                className="relative rounded-3xl shadow-2xl shadow-zinc-800/20 dark:shadow-black/60 ring-1 ring-zinc-900/10 dark:ring-white/10"
+                priority
+              />
             </div>
-            <p className="mt-6 text-base text-zinc-600 dark:text-zinc-400 max-w-sm">
+          </div>
+
+          {/* Bio — left column */}
+          <div className="flex flex-col">
+            <h1 className="text-4xl font-bold tracking-tight sm:text-5xl">
+              <span className="block leading-[1.2] bg-gradient-to-r from-sky-500 to-red-500 bg-[length:400%] bg-clip-text text-transparent gradient-text">
+                Corey Kogan,
+              </span>
+              <span className="mt-1 block text-zinc-800 dark:text-zinc-100">
+                Web Developer
+              </span>
+            </h1>
+
+            <p className="mt-6 text-base leading-7 text-zinc-600 dark:text-zinc-400 max-w-md">
               I&apos;m Corey, a web developer based in Philadelphia,
               Pennsylvania. I&apos;m passionate about building responsive and
               accessible web applications using the latest technologies in the
               web industry.
             </p>
+
+            {/* Social icons */}
             <div className="mt-6 flex gap-6">
               <SocialLink
                 href="https://twitter.com/coreykogan_"
@@ -91,29 +110,32 @@ export default async function Home() {
                 icon={LinkedInIcon}
               />
             </div>
-            <div className="space-x-2 mt-4 flex items-center">
-              <div>
-                <a
-                  href="/resume.pdf"
-                  className="inline-block rounded-md px-2 py-1 uppercase bg-gray-500 text-white text-sm font-medium hover:bg-gray-700 transition-all duration-150 ease-linear border border-gray-500 hover:border-gray-700"
-                >
-                  My Resume
-                </a>
-              </div>
-              <div>
-                <Link
-                  href="/contact"
-                  className="inline-block rounded-md px-2 py-1 uppercase bg-white text-gray-500 border border-gray-500 text-sm font-medium hover:border-gray-700 hover:bg-gray-700 hover:text-white transition-all duration-150 ease-linear"
-                >
-                  Contact Me
-                </Link>
-              </div>
+
+            {/* CTA buttons */}
+            <div className="mt-6 flex flex-wrap items-center gap-3">
+              <a
+                href="/resume.pdf"
+                className="inline-flex items-center gap-2 rounded-lg px-5 py-2.5 text-sm font-semibold bg-zinc-800 text-white shadow-sm hover:bg-zinc-700 active:bg-zinc-900 dark:bg-zinc-700 dark:hover:bg-zinc-600 transition-colors duration-150"
+              >
+                My Resume
+              </a>
+              <Link
+                href="/contact"
+                className="inline-flex items-center gap-2 rounded-lg px-5 py-2.5 text-sm font-semibold text-zinc-700 dark:text-zinc-200 bg-white dark:bg-zinc-800/60 border border-zinc-300 dark:border-zinc-700 shadow-sm hover:bg-zinc-50 dark:hover:bg-zinc-800 hover:border-zinc-400 dark:hover:border-zinc-600 transition-colors duration-150"
+              >
+                Contact Me
+              </Link>
             </div>
-            <Flow />
+
+            {/* Interactive slides */}
+            <div className="mt-8">
+              <Flow />
+            </div>
           </div>
         </div>
       </Container>
 
+      {/* ── Articles + Newsletter ── */}
       <Container className="mt-24 md:mt-28 mb-6">
         <div className="mx-auto grid max-w-xl grid-cols-1 gap-y-20 lg:max-w-none lg:grid-cols-2">
           <div className="flex flex-col gap-16">
