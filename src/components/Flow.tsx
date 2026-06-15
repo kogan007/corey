@@ -22,7 +22,7 @@ const { nodes, edges } = slidesToElements(initialSlide, slides);
 export default function Flow() {
   return (
     <ReactFlowProvider>
-      <div className="w-full h-80">
+      <div className="w-full h-full">
         <SlideWrap />
       </div>
     </ReactFlowProvider>

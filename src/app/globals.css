@@ -58,7 +58,7 @@ pre[class*="language-"] {
 }
 
 .gradient-text {
-  animation: Gradient 15s ease infinite;
+  animation: Gradient 12s ease infinite;
 }
 
 /* ── Slide gradient border spinner ── */
@@ -86,18 +86,12 @@ pre[class*="language-"] {
   100% { transform: translate(-50%, -50%) rotate(-360deg); }
 }
 
-/* ── React Flow ── */
+/* ── React Flow canvas ── */
 .react-flow__panel.react-flow__attribution {
   display: none;
 }
 
-/* Rounded background for the flow canvas */
+/* Remove the double border — the wrapper div already has one */
 .react-flow {
-  border-radius: 0.75rem;
-  overflow: hidden;
-  border: 1px solid rgb(228 228 231 / 0.8); /* zinc-200 */
-}
-
-.dark .react-flow {
-  border-color: rgb(63 63 70 / 0.6); /* zinc-700 */
+  border: none !important;
 }
