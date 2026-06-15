@@ -61,7 +61,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="flex h-full flex-col bg-zinc-50 dark:bg-black min-h-screen absolute top-[5px] left-[-2px]">
+      <body className="flex h-full flex-col bg-zinc-50 dark:bg-black min-h-screen">
         <Script
           dangerouslySetInnerHTML={{ __html: modeScript }}
           id="mode-script"
