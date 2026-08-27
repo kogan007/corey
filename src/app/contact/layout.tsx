@@ -1,8 +1,10 @@
 import { type Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Contact - Corey Kogan",
-  description: "Lets get in touch and hear your ideas",
+  title: "Hire a Full-Stack Software Engineer",
+  description:
+    "Contact Corey Kogan, a Philadelphia-based full-stack, frontend, product, and forward-deployed engineer available for Northeast and remote software teams.",
+  alternates: { canonical: "/contact" },
 };
 
 export default function ContactLayout({

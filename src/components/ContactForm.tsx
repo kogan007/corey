@@ -22,7 +22,7 @@ export default function ContactForm() {
         <div>
           <label
             htmlFor="first-name"
-            className="block text-sm font-medium text-warm-gray-900"
+            className="contact-label"
           >
             First name
           </label>
@@ -32,14 +32,15 @@ export default function ContactForm() {
               name="firstName"
               id="first-name"
               autoComplete="given-name"
-              className="block w-full rounded-md border-warm-gray-300 py-3 px-4 text-warm-gray-900 shadow-sm focus:border-teal-500 focus:ring-teal-500"
+              className="contact-input"
+              placeholder="Ada"
             />
           </div>
         </div>
         <div>
           <label
             htmlFor="last-name"
-            className="block text-sm font-medium text-warm-gray-900"
+            className="contact-label"
           >
             Last name
           </label>
@@ -49,14 +50,15 @@ export default function ContactForm() {
               name="lastName"
               id="last-name"
               autoComplete="family-name"
-              className="block w-full rounded-md border-warm-gray-300 py-3 px-4 text-warm-gray-900 shadow-sm focus:border-teal-500 focus:ring-teal-500"
+              className="contact-input"
+              placeholder="Lovelace"
             />
           </div>
         </div>
         <div>
           <label
             htmlFor="email"
-            className="block text-sm font-medium text-warm-gray-900"
+            className="contact-label"
           >
             Email
           </label>
@@ -66,7 +68,8 @@ export default function ContactForm() {
               name="email"
               type="email"
               autoComplete="email"
-              className="block w-full rounded-md border-warm-gray-300 py-3 px-4 text-warm-gray-900 shadow-sm focus:border-teal-500 focus:ring-teal-500"
+              className="contact-input"
+              placeholder="ada@company.com"
             />
           </div>
         </div>
@@ -74,11 +77,11 @@ export default function ContactForm() {
           <div className="flex justify-between">
             <label
               htmlFor="phone"
-              className="block text-sm font-medium text-warm-gray-900"
+              className="contact-label"
             >
               Phone
             </label>
-            <span id="phone-optional" className="text-sm text-warm-gray-500">
+            <span id="phone-optional" className="contact-optional">
               Optional
             </span>
           </div>
@@ -88,7 +91,8 @@ export default function ContactForm() {
               name="phone"
               id="phone"
               autoComplete="tel"
-              className="block w-full rounded-md border-warm-gray-300 py-3 px-4 text-warm-gray-900 shadow-sm focus:border-teal-500 focus:ring-teal-500"
+              className="contact-input"
+              placeholder="(optional)"
               aria-describedby="phone-optional"
             />
           </div>
@@ -96,7 +100,7 @@ export default function ContactForm() {
         <div className="sm:col-span-2">
           <label
             htmlFor="subject"
-            className="block text-sm font-medium text-warm-gray-900"
+            className="contact-label"
           >
             Subject
           </label>
@@ -105,7 +109,8 @@ export default function ContactForm() {
               type="text"
               name="subject"
               id="subject"
-              className="block w-full rounded-md border-warm-gray-300 py-3 px-4 text-warm-gray-900 shadow-sm focus:border-teal-500 focus:ring-teal-500"
+              className="contact-input"
+              placeholder="A new project, a tricky problem..."
             />
           </div>
         </div>
@@ -113,11 +118,11 @@ export default function ContactForm() {
           <div className="flex justify-between">
             <label
               htmlFor="message"
-              className="block text-sm font-medium text-warm-gray-900"
+              className="contact-label"
             >
               Message
             </label>
-            <span id="message-max" className="text-sm text-warm-gray-500">
+            <span id="message-max" className="contact-optional">
               Max. 500 characters
             </span>
           </div>
@@ -126,8 +131,9 @@ export default function ContactForm() {
               id="message"
               name="message"
               rows={4}
-              className="block w-full rounded-md border-warm-gray-300 py-3 px-4 text-warm-gray-900 shadow-sm focus:border-teal-500 focus:ring-teal-500"
+              className="contact-input"
               aria-describedby="message-max"
+              placeholder="A few details about what you're building, where you're stuck, or how I can help."
               defaultValue={""}
             />
           </div>
@@ -136,7 +142,7 @@ export default function ContactForm() {
           <button
             type="submit"
             disabled={type === "loading"}
-            className="mt-2 inline-flex w-full items-center justify-center rounded-md border border-transparent bg-teal-500 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-teal-600 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2 sm:w-auto"
+            className="contact-submit"
           >
             Submit
           </button>

@@ -1,8 +1,10 @@
 import { type Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "About - Corey Kogan",
-  description: "I'm Corey, a web developer based in Philadelphia, Pennsylvania.",
+  title: "Full-Stack, Frontend & Product Engineer in Philadelphia",
+  description:
+    "Meet Corey Kogan, a Philadelphia-based full-stack, frontend, and product engineer experienced in accessible web applications, React, Next.js, and headless commerce.",
+  alternates: { canonical: "/about" },
 };
 
 export default function AboutLayout({

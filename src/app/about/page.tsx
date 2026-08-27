@@ -1,155 +1,98 @@
 import Image from "next/image";
 import Link from "next/link";
-import clsx from "clsx";
 
 import { Container } from "@/components/Container";
 import {
-  TwitterIcon,
-  InstagramIcon,
   GitHubIcon,
+  InstagramIcon,
   LinkedInIcon,
+  TwitterIcon,
 } from "@/components/SocialIcons";
 
-function SocialLink({ className, href, children, icon: Icon }: any) {
+type SocialLinkProps = {
+  href: string;
+  children: React.ReactNode;
+  icon: typeof GitHubIcon;
+};
+
+function SocialLink({ href, children, icon: Icon }: SocialLinkProps) {
   return (
-    <li className={clsx(className, "flex")}>
-      <Link
-        href={href}
-        className="group flex text-sm font-medium text-zinc-800 transition hover:text-teal-500 dark:text-zinc-200 dark:hover:text-teal-500"
-      >
-        <Icon className="h-6 w-6 flex-none fill-zinc-500 transition group-hover:fill-teal-500" />
-        <span className="ml-4">{children}</span>
-      </Link>
-    </li>
+    <a href={href} target={href.startsWith("http") ? "_blank" : undefined} rel={href.startsWith("http") ? "noreferrer" : undefined} className="about-social-link">
+      <Icon aria-hidden="true" />
+      <span>{children}</span>
+      <i aria-hidden="true">↗</i>
+    </a>
   );
 }
 
-function MailIcon(props: any) {
-  return (
-    <svg viewBox="0 0 24 24" aria-hidden="true" {...props}>
-      <path
-        fillRule="evenodd"
-        d="M6 5a3 3 0 0 0-3 3v8a3 3 0 0 0 3 3h12a3 3 0 0 0 3-3V8a3 3 0 0 0-3-3H6Zm.245 2.187a.75.75 0 0 0-.99 1.126l6.25 5.5a.75.75 0 0 0 .99 0l6.25-5.5a.75.75 0 0 0-.99-1.126L12 12.251 6.245 7.187Z"
-      />
-    </svg>
-  );
+function MailIcon(props: React.ComponentProps<"svg">) {
+  return <svg viewBox="0 0 24 24" {...props}><path fillRule="evenodd" d="M6 5a3 3 0 0 0-3 3v8a3 3 0 0 0 3 3h12a3 3 0 0 0 3-3V8a3 3 0 0 0-3-3H6Zm.245 2.187a.75.75 0 0 0-.99 1.126l6.25 5.5a.75.75 0 0 0 .99 0l6.25-5.5a.75.75 0 0 0-.99-1.126L12 12.251 6.245 7.187Z" /></svg>;
 }
+
+const career = [
+  { years: "2024 — now", company: "CompScience", role: "Frontend Software Engineer", detail: "AI-driven insurance software: underwriting, inspection, summaries, and analytics people can trust." },
+  { years: "2023 — 2024", company: "Rhone", role: "Web Developer", detail: "Headless commerce, high-traffic category browsing, and product experiences built for real shopping behavior." },
+  { years: "2019 — 2023", company: "MakDigital", role: "Full Stack Web Developer", detail: "Custom storefronts and web applications across React, Next.js, Remix, BigCommerce, and Shopify." },
+];
 
 export default function About() {
   return (
-    <>
-      <Container className="mt-16 sm:mt-32">
-        <div className="grid grid-cols-1 gap-y-16 lg:grid-cols-2 lg:grid-rows-[auto_1fr] lg:gap-y-12">
-          <div className="lg:pl-20">
-            <div className="max-w-xs px-2.5 lg:max-w-none">
-              <Image
-                src="/images/portrait.png"
-                alt=""
-                width={740}
-                height={915}
-                sizes="(min-width: 1024px) 32rem, 20rem"
-                className="aspect-square rotate-3 rounded-2xl bg-zinc-100 object-cover dark:bg-zinc-800"
-              />
+    <main className="about-page">
+      <Container>
+        <section className="about-hero">
+          <div className="about-hero__copy">
+            <p className="eyebrow">ABOUT COREY</p>
+            <h1>I make the hard screens feel <em>obvious.</em></h1>
+            <p className="about-hero__intro">I&apos;m a full-stack product engineer in Philadelphia. I work where a good interface, sound systems thinking, and the people actually using the product all have to agree.</p>
+            <div className="about-status"><span /> Currently building AI-driven insurance tools at CompScience</div>
+          </div>
+          <div className="about-portrait">
+            <div className="about-portrait__scribble" aria-hidden="true">HELLO<br />THERE</div>
+            <Image src="/images/portrait.png" alt="Corey Kogan" width={740} height={915} priority sizes="(min-width: 1024px) 34rem, 82vw" />
+            <p>Philadelphia, PA <b>✦</b> remotely available</p>
+          </div>
+        </section>
+
+        <section className="about-story">
+          <p className="eyebrow">THE THROUGHLINE</p>
+          <div>
+            <h2>Curious early. Product-minded ever since.</h2>
+            <div className="about-story__body">
+              <p>I started making websites as a kid—first virtual communities, then a tiny phone app my friends and I built for a school science fair. By the time the whole class had it installed, I was hooked on the feeling of making something people could actually use.</p>
+              <p>That instinct has stayed constant: get close to the work, understand the friction, and put a working version in front of people early. Today that means designing and building complex internal tools, commerce experiences, APIs, and the connective tissue between them.</p>
+              <p>I care about software that earns its place in someone&apos;s day: fast when conditions are messy, accessible by default, and considerate enough that people can focus on their work—not fight the interface.</p>
             </div>
           </div>
-          <div className="lg:order-first lg:row-span-2">
-            <h1 className="text-4xl font-bold tracking-tight text-zinc-800 dark:text-zinc-100 sm:text-5xl">
-              About Me
-            </h1>
-            <div className="mt-6 space-y-7 text-base text-zinc-600 dark:text-zinc-400">
-              <p>
-                I&apos;ve been interested in coding and computers since I was
-                just a small child. My parents had technical backgrounds, and I
-                had a laptop since I was a kid. When I was 10 years old my mom,
-                who worked as a web developer for Ebay at the time, explained to
-                me how the DOM works.
-              </p>
-              <p>
-                I started making websites in my free time from then. I was
-                interested in creating virtual communities, and created a
-                website for my friend&apos; minecraft server. In 8th grade I won
-                the school&apos; science fair with a project I made with several
-                friends - a personal assistant phone application, similar to
-                Siri. We even charged other kids to add custom prompts and
-                responses, and not long after our whole class had our app
-                installed on their phones.
-              </p>
-              <p>
-                My professional career in web development started at
-                MakDigitalDesign. There I started with working on SEO, wordpress
-                sites, and learning the ins and outs of the trade. Eventually I
-                moved on to working with ecommerce businesses on Shopify and
-                Bigcommerce, where I created custom themes using Liquid and
-                Stencil.
-              </p>
-              <p>
-                I found my passion in the trade when I learned more about
-                frameworks like React and Vue. I worked on some hobby projects,
-                and then brought my knowledge into my work, by creating custom
-                React based components for the businesses I was working with.
-                One of the most highly requested projects from that time period
-                was a drag and drop into bigcommerce &quot;side cart&quot;, that
-                pulls out from either the left or right, and allows for changing
-                the quantity as well as product options from any page on the
-                storefront.
-              </p>
-              <p>
-                From there I&apos;ve moved onto my current line of work, which
-                I&apos;m most excited about, and believe is the future of
-                ecommerce - headless storefronts. This lead me into working with
-                both front and backend code based around typescript, NodeJS, and
-                React, as well as working with frameworks such as NextJS and
-                RemixJS, the latter which I have become a huge supporter of.
-              </p>
-              <p>
-                I&apos;m excited and highly motivated to learn more and work on
-                a wider variety of projects, and leave my mark on the web. My
-                mission is to encourage accessibility, create fast websites
-                using progressive enhancement, and end the days of constant
-                loading spinners while browsing content.
-              </p>
-            </div>
+        </section>
+
+        <section className="about-principles" aria-labelledby="principles-heading">
+          <div><p className="eyebrow">WHAT I BRING</p><h2 id="principles-heading">A little less theater. A lot more useful.</h2></div>
+          <ul>
+            <li><span>01</span><p><strong>Prototype early.</strong> A working screen gives teams something concrete to react to—and makes better decisions sooner.</p></li>
+            <li><span>02</span><p><strong>Respect the details.</strong> Performance, state, edge cases, and accessibility are all part of the product—not cleanup work.</p></li>
+            <li><span>03</span><p><strong>Push for the right thing.</strong> I&apos;ll challenge a prompt or a layout when the user, the data, or the outcome asks for better.</p></li>
+          </ul>
+        </section>
+
+        <section className="about-career" aria-labelledby="career-heading">
+          <div className="about-career__heading"><p className="eyebrow">A FEW CHAPTERS</p><h2 id="career-heading">Where I&apos;ve been building.</h2></div>
+          <ol>
+            {career.map((item) => <li key={item.company}><p>{item.years}</p><div><h3>{item.company}</h3><strong>{item.role}</strong><span>{item.detail}</span></div></li>)}
+          </ol>
+        </section>
+
+        <section className="about-connect">
+          <div><p className="eyebrow">FIND ME ELSEWHERE</p><h2>Let&apos;s keep in touch.</h2></div>
+          <div className="about-connect__links">
+            <SocialLink href="https://github.com/kogan007" icon={GitHubIcon}>GitHub</SocialLink>
+            <SocialLink href="https://www.linkedin.com/in/corey-kogan-5159261b5/" icon={LinkedInIcon}>LinkedIn</SocialLink>
+            <SocialLink href="https://twitter.com/coreykogan_" icon={TwitterIcon}>Twitter</SocialLink>
+            <SocialLink href="https://instagram.com/coreykogan" icon={InstagramIcon}>Instagram</SocialLink>
+            <SocialLink href="mailto:coreykogan@gmail.com" icon={MailIcon}>coreykogan@gmail.com</SocialLink>
           </div>
-          <div className="lg:pl-20">
-            <ul role="list">
-              <SocialLink
-                href="https://twitter.com/coreykogan_"
-                icon={TwitterIcon}
-              >
-                Follow on Twitter
-              </SocialLink>
-              <SocialLink
-                href="https://instagram.com/coreykogan"
-                icon={InstagramIcon}
-                className="mt-4"
-              >
-                Follow on Instagram
-              </SocialLink>
-              <SocialLink
-                href="https://github.com/kogan007"
-                icon={GitHubIcon}
-                className="mt-4"
-              >
-                Follow on GitHub
-              </SocialLink>
-              <SocialLink
-                href="https://www.linkedin.com/in/corey-kogan-5159261b5/"
-                icon={LinkedInIcon}
-                className="mt-4"
-              >
-                Follow on LinkedIn
-              </SocialLink>
-              <SocialLink
-                href="mailto:coreykogan@gmail.com"
-                icon={MailIcon}
-                className="border-zinc-100 mt-4 dark:border-zinc-700/40"
-              >
-                coreykogan@gmail.com
-              </SocialLink>
-            </ul>
-          </div>
-        </div>
+          <Link href="/contact" className="button button--primary">Start a conversation <span className="arrow" aria-hidden="true">↗</span></Link>
+        </section>
       </Container>
-    </>
+    </main>
   );
 }

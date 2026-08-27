@@ -1,45 +1,58 @@
-import { Container } from "@/components/Container";
-import { formatDate } from "@/lib/formatDate";
-import { getAllPosts } from "@/lib/posts";
 import Image from "next/image";
 import Link from "next/link";
 
+import { Container } from "@/components/Container";
+import { formatDate } from "@/lib/formatDate";
+import { getAllPosts } from "@/lib/posts";
+
 export default async function Blog() {
   const { allPost } = await getAllPosts();
+  const [featuredPost, ...remainingPosts] = allPost;
+
   return (
-    <Container className="mt-12">
-      <div className="text-4xl font-bold tracking-tight text-zinc-800 dark:text-zinc-100 sm:text-3xl max-w-lg mb-12">
-        A collection of my thoughts, ideas, and experiences throughout life, my
-        career, and more.
-      </div>
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 h-full gap-6">
-        {allPost.map((post) => (
-          <div key={post._id} className="mb-6 flex flex-col">
-            <Link href={post.path.current}>
-              <Image
-                src={post.postImage.asset.url}
-                height={600}
-                width={600}
-                alt={post.title}
-                className="max-h-40 h-full w-full"
-              />
-            </Link>
-            <div className="bg-gray-200 py-4 px-10 h-full">
-              <h5 className="text-center capitalize text-sm text-gray-400">
-                {post.tags[0]}
-              </h5>
-              <Link href={post.path.current}>
-                <h3 className="text-lg text-center font-medium">
-                  {post.title}
-                </h3>
-              </Link>
-              <div className="text-center w-full text-xs mt-1">
-                <span>{formatDate(post._createdAt)}</span>
-              </div>
+    <main className="blog-page">
+      <Container>
+        <header className="blog-page__header">
+          <p className="eyebrow">THE NOTEBOOK / {String(allPost.length).padStart(2, "0")} ENTRIES</p>
+          <h1>Notes from the workbench.</h1>
+          <p>Thoughts on building for the web, growing communities, and the decisions that make a digital experience feel considered.</p>
+        </header>
+
+        {featuredPost && (
+          <Link href={featuredPost.path.current} className="blog-featured">
+            <div className="blog-featured__image">
+              <Image src={featuredPost.postImage.asset.url} alt="" fill priority sizes="(min-width: 1024px) 58vw, 100vw" />
             </div>
-          </div>
-        ))}
-      </div>
-    </Container>
+            <div className="blog-featured__content">
+              <p className="eyebrow">LATEST NOTE <span>·</span> {formatDate(featuredPost._createdAt)}</p>
+              <h2>{featuredPost.title}</h2>
+              <p>{featuredPost.shortDesc}</p>
+              <span className="text-link">Read the note <i aria-hidden="true">↗</i></span>
+            </div>
+          </Link>
+        )}
+
+        {remainingPosts.length > 0 && (
+          <section className="blog-list" aria-label="More writing">
+            <div className="blog-list__heading"><p className="eyebrow">MORE FROM THE NOTEBOOK</p><span>{remainingPosts.length} entries</span></div>
+            <div className="blog-list__grid">
+              {remainingPosts.map((post, index) => (
+                <Link href={post.path.current} className="blog-card" key={post._id}>
+                  <div className="blog-card__image">
+                    <Image src={post.postImage.asset.url} alt="" fill sizes="(min-width: 768px) 50vw, 100vw" />
+                    <span>0{index + 2}</span>
+                  </div>
+                  <div className="blog-card__content">
+                    <p>{post.tags?.[0] ?? "Notebook"} <i>·</i> {formatDate(post._createdAt)}</p>
+                    <h2>{post.title}</h2>
+                    <span>Read note <i aria-hidden="true">↗</i></span>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </section>
+        )}
+      </Container>
+    </main>
   );
 }

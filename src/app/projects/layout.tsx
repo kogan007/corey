@@ -1,9 +1,10 @@
 import { type Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Projects - Corey Kogan",
+  title: "Full-Stack Engineering Portfolio",
   description:
-    "Here is a small collection of projects I've worked on, many having been built from scratch.",
+    "Selected full-stack, frontend, and product engineering work by Corey Kogan, a Philadelphia software engineer building customer-facing web products and commerce experiences.",
+  alternates: { canonical: "/projects" },
 };
 
 export default function ProjectsLayout({
