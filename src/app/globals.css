@@ -221,6 +221,12 @@ body:has(.chapters-home) .site-footer { display: none; }
 .chapter h1 { margin-bottom: 30px; font-size: clamp(64px, 9vw, 132px); }
 .chapter h2 { font-size: clamp(52px, 6.5vw, 92px); }
 .chapter-copy > p:not(.chapter-num) { max-width: 570px; color: var(--chapters-muted); font-size: 19px; line-height: 1.6; text-wrap: pretty; }
+.chapter-socials { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 26px; }
+.chapter-socials a { display: inline-flex; min-height: 40px; align-items: center; gap: 7px; border: 1px solid var(--chapters-border); padding: 0 12px; color: var(--chapters-fg); font-size: 12px; font-weight: 700; transition: background .18s, transform .18s cubic-bezier(.23,1,.32,1); }
+.chapter-socials a:hover { background: var(--chapters-surface); transform: translateY(-2px); }
+.chapter-socials a:active { transform: scale(.97); }
+.chapter-socials svg { width: 15px; height: 15px; fill: currentColor; }
+.chapter-socials a > span { color: var(--chapters-accent); }
 .chapter-stage { position: relative; display: grid; min-height: 400px; place-items: center; }
 .chapter-orb { position: relative; display: grid; width: min(28vw, 330px); aspect-ratio: 1; place-items: center; border: 1px solid var(--chapters-fg); border-radius: 50%; transition: transform .7s cubic-bezier(.2,.7,.2,1); }
 .chapter.is-active .chapter-orb { transform: rotate(135deg); }

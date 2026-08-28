@@ -4,6 +4,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
+import { InstagramIcon, LinkedInIcon } from "@/components/SocialIcons";
+
 const chapters = [
   { id: "chapter-1", label: "Go to introduction" },
   { id: "chapter-2", label: "Go to approach" },
@@ -43,7 +45,7 @@ export function ChapterHome() {
         {chapters.map(({ id, label }) => <button key={id} type="button" aria-label={label} aria-controls={id} aria-current={activeChapter === id ? "true" : undefined} onClick={() => goToChapter(id)} />)}
       </nav>
       <section className={`chapter ${activeChapter === "chapter-1" ? "is-active" : ""}`} id="chapter-1">
-        <div className="chapter-copy"><p className="chapter-num"><span />01 / INTRODUCTION</p><h1>One engineer. The <em>whole</em> product.</h1><p>Corey Kogan is a Philadelphia-based full-stack, frontend, and product engineer who brings the work from first idea through the last edge case.</p></div>
+        <div className="chapter-copy"><p className="chapter-num"><span />01 / INTRODUCTION</p><h1>One engineer. The <em>whole</em> product.</h1><p>Corey Kogan is a Philadelphia-based full-stack, frontend, and product engineer who brings the work from first idea through the last edge case.</p><div className="chapter-socials" aria-label="Corey Kogan on social media"><a href="https://www.linkedin.com/in/corey-kogan-5159261b5/" target="_blank" rel="noreferrer"><LinkedInIcon /> LinkedIn <span aria-hidden="true">↗</span></a><a href="https://instagram.com/coreykogan" target="_blank" rel="noreferrer"><InstagramIcon /> Instagram <span aria-hidden="true">↗</span></a></div></div>
         <div className="chapter-stage intro-stage" aria-label="Animated record player with Corey Kogan portrait label"><div className="record-wrap"><div className="chapter-orb record" aria-hidden="true"><span className="record-marker" /></div><div className="record-photo"><Image src="/images/portrait.png" alt="" fill priority sizes="(min-width: 720px) 310px, 210px" /></div><div className="record-arm" aria-hidden="true" /></div></div><p className="chapter-hint">SCROLL TO CONTINUE</p>
       </section>
       <section className={`chapter chapter-dark ${activeChapter === "chapter-2" ? "is-active" : ""}`} id="chapter-2"><div className="chapter-copy"><p className="chapter-num"><span />02 / HOW HE WORKS</p><h2>Start close to the people using it.</h2><p>Discovery, prototype, ship, iterate. A working screen helps a team make sharper decisions than a long document ever could.</p></div><div className="chapter-stage"><article className="chapter-card"><small>THE WORKING LOOP</small><strong>Discovery<br />Prototype<br />Ship<br />Iterate</strong><p>Product, users, and operations stay in view at every turn.</p></article></div></section>
