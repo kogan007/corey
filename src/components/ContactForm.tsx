@@ -1,167 +1,218 @@
 "use client";
 
-import useForm from "@/lib/useForm";
-import { clsx } from "clsx";
-import ValidationMessage from "./ValidationMessage";
+import { FormEvent, useState } from "react";
+import Script from "next/script";
+
+type SubmissionState = {
+  status: "idle" | "submitting" | "success" | "error";
+  message?: string;
+};
+
+type ContactResponse = {
+  body?: { message?: string };
+  error?: string;
+  message?: string;
+  success?: boolean;
+};
+
+const WEB3FORMS_ENDPOINT = "https://api.web3forms.com/submit";
+const WEB3FORMS_ACCESS_KEY = "32d8c349-037a-43b6-8db2-366b5d5bf148";
 
 export default function ContactForm() {
-  const {
-    state: { data, type },
-    handleSubmit,
-  } = useForm();
+  const [submission, setSubmission] = useState<SubmissionState>({
+    status: "idle",
+  });
+
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+
+    const form = event.currentTarget;
+    const formData = new FormData(form);
+    const firstName = String(formData.get("firstName") ?? "").trim();
+    const lastName = String(formData.get("lastName") ?? "").trim();
+    const email = String(formData.get("email") ?? "").trim();
+    const subject = String(formData.get("subject") ?? "").trim();
+    const captchaResponse = String(
+      formData.get("h-captcha-response") ?? "",
+    ).trim();
+
+    if (!captchaResponse) {
+      setSubmission({
+        status: "error",
+        message: "Please complete the CAPTCHA before sending your message.",
+      });
+      return;
+    }
+
+    setSubmission({ status: "submitting" });
+
+    try {
+      const response = await fetch(WEB3FORMS_ENDPOINT, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          ...Object.fromEntries(formData),
+          access_key: WEB3FORMS_ACCESS_KEY,
+          from_name: "Corey Kogan — Portfolio",
+          name: `${firstName} ${lastName}`.trim(),
+          replyto: email,
+          subject: subject || `New portfolio inquiry from ${firstName} ${lastName}`.trim(),
+        }),
+      });
+
+      const result = (await response.json().catch(() => null)) as ContactResponse | null;
+
+      if (!response.ok || !result?.success) {
+        throw new Error(
+          result?.body?.message ??
+          result?.error ??
+          result?.message ??
+          "Your message could not be sent. Please try again.",
+        );
+      }
+
+      form.reset();
+      setSubmission({
+        status: "success",
+        message:
+          result?.body?.message ??
+          result?.message ??
+          "Thanks — your message was sent.",
+      });
+    } catch (error) {
+      setSubmission({
+        status: "error",
+        message:
+          error instanceof Error
+            ? error.message
+            : "Your message could not be sent. Please try again.",
+      });
+    }
+  }
+
+  const isSubmitting = submission.status === "submitting";
 
   return (
-    <form action="/api/contact" method="POST" onSubmit={handleSubmit}>
-      <fieldset
-        className={clsx(
-          type === "loading" ? "opacity-80 " : "",
-          "mt-6 grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-8"
-        )}
-        disabled={type === "loading"}
-      >
-        <div>
-          <label
-            htmlFor="first-name"
-            className="contact-label"
-          >
-            First name
+    <>
+      <Script
+        src="https://web3forms.com/client/script.js"
+        strategy="afterInteractive"
+      />
+      <form action={WEB3FORMS_ENDPOINT} method="POST" onSubmit={handleSubmit}>
+        <fieldset
+          className="mt-6 grid gap-5 sm:grid-cols-2"
+          disabled={isSubmitting}
+        >
+          <div className="hidden" aria-hidden="true">
+            <input name="access_key" type="hidden" value={WEB3FORMS_ACCESS_KEY} />
+            <label htmlFor="botcheck">Leave this field empty</label>
+            <input
+              autoComplete="off"
+              id="botcheck"
+              name="botcheck"
+              tabIndex={-1}
+              type="checkbox"
+            />
+          </div>
+
+          <label className="contact-label" htmlFor="firstName">
+          First name
+          <input
+            autoComplete="given-name"
+            className="contact-input"
+            id="firstName"
+            name="firstName"
+            required
+            type="text"
+          />
           </label>
-          <div className="mt-1">
-            <input
-              type="text"
-              name="firstName"
-              id="first-name"
-              autoComplete="given-name"
-              className="contact-input"
-              placeholder="Ada"
-            />
-          </div>
-        </div>
-        <div>
-          <label
-            htmlFor="last-name"
-            className="contact-label"
-          >
-            Last name
+
+          <label className="contact-label" htmlFor="lastName">
+          Last name
+          <input
+            autoComplete="family-name"
+            className="contact-input"
+            id="lastName"
+            name="lastName"
+            required
+            type="text"
+          />
           </label>
-          <div className="mt-1">
-            <input
-              type="text"
-              name="lastName"
-              id="last-name"
-              autoComplete="family-name"
-              className="contact-input"
-              placeholder="Lovelace"
-            />
-          </div>
-        </div>
-        <div>
-          <label
-            htmlFor="email"
-            className="contact-label"
-          >
-            Email
+
+          <label className="contact-label" htmlFor="email">
+          Email
+          <input
+            autoComplete="email"
+            className="contact-input"
+            id="email"
+            name="email"
+            required
+            type="email"
+          />
           </label>
-          <div className="mt-1">
-            <input
-              id="email"
-              name="email"
-              type="email"
-              autoComplete="email"
-              className="contact-input"
-              placeholder="ada@company.com"
-            />
-          </div>
-        </div>
-        <div>
-          <div className="flex justify-between">
-            <label
-              htmlFor="phone"
-              className="contact-label"
-            >
-              Phone
-            </label>
-            <span id="phone-optional" className="contact-optional">
-              Optional
-            </span>
-          </div>
-          <div className="mt-1">
-            <input
-              type="text"
-              name="phone"
-              id="phone"
-              autoComplete="tel"
-              className="contact-input"
-              placeholder="(optional)"
-              aria-describedby="phone-optional"
-            />
-          </div>
-        </div>
-        <div className="sm:col-span-2">
-          <label
-            htmlFor="subject"
-            className="contact-label"
-          >
-            Subject
+
+          <label className="contact-label" htmlFor="phone">
+          Phone <span aria-hidden="true">(optional)</span>
+          <input
+            autoComplete="tel"
+            className="contact-input"
+            id="phone"
+            name="phone"
+            type="tel"
+          />
           </label>
-          <div className="mt-1">
-            <input
-              type="text"
-              name="subject"
-              id="subject"
-              className="contact-input"
-              placeholder="A new project, a tricky problem..."
-            />
-          </div>
-        </div>
-        <div className="sm:col-span-2">
-          <div className="flex justify-between">
-            <label
-              htmlFor="message"
-              className="contact-label"
-            >
-              Message
-            </label>
-            <span id="message-max" className="contact-optional">
-              Max. 500 characters
-            </span>
-          </div>
-          <div className="mt-1">
+
+          <label className="contact-label sm:col-span-2" htmlFor="subject">
+          Subject <span aria-hidden="true">(optional)</span>
+          <input
+            className="contact-input"
+            id="subject"
+            name="subject"
+            type="text"
+          />
+          </label>
+
+          <label className="contact-label sm:col-span-2" htmlFor="message">
+            Message
             <textarea
+              className="contact-input min-h-36 resize-y"
               id="message"
+              maxLength={500}
               name="message"
-              rows={4}
-              className="contact-input"
-              aria-describedby="message-max"
-              placeholder="A few details about what you're building, where you're stuck, or how I can help."
-              defaultValue={""}
+              required
+            />
+          </label>
+
+          <div className="sm:col-span-2">
+            <p className="contact-label mb-2">Security check</p>
+            <div
+              className="h-captcha"
+              data-captcha="true"
+              data-theme="dark"
             />
           </div>
-        </div>
-        <div className="sm:col-span-2 sm:flex sm:justify-end">
-          <button
-            type="submit"
-            disabled={type === "loading"}
-            className="contact-submit"
-          >
-            Submit
-          </button>
-        </div>
-        {data?.error && (
-          <ValidationMessage
-            message={data.error}
-            isSubmitting={type === "loading"}
-            type="error"
-          />
-        )}
-        {data && !data.error && (
-          <ValidationMessage
-            message="Successfully submitted"
-            isSubmitting={type === "loading"}
-            type="success"
-          />
-        )}
-      </fieldset>
-    </form>
+
+          <div className="sm:col-span-2">
+            <button className="contact-submit" type="submit">
+              {isSubmitting ? "Sending…" : "Send message"}
+            </button>
+            {submission.status !== "idle" && submission.message ? (
+              <p
+                aria-live="polite"
+                className={`mt-3 text-sm ${
+                  submission.status === "error" ? "text-red-300" : "text-white/70"
+                }`}
+                role={submission.status === "error" ? "alert" : undefined}
+              >
+                {submission.message}
+              </p>
+            ) : null}
+          </div>
+        </fieldset>
+      </form>
+    </>
   );
 }
